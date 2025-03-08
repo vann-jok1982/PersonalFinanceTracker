@@ -11,15 +11,38 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+
+/**
+ * Класс `TransactionService` предоставляет методы для управления списком транзакций.
+ * Включает функциональность добавления новых транзакций для определенного пользователя.
+ */
 public class TransactionService {
 
-    private final List<Transaction> transactions = new ArrayList<>();
+    /**
+     * Список для хранения транзакций.
+     */
+    private  List<Transaction> transactions = new ArrayList<>();
+
+    /**
+     * Сканер для чтения ввода пользователя с консоли.
+     */
     Scanner sc = new Scanner(System.in);
 
+    /**
+     * Возвращает список всех транзакций.
+     *
+     * @return Список транзакций.
+     */
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
+    /**
+     * Добавляет новую транзакцию в список транзакций для указанного пользователя.
+     * Запрашивает у пользователя сумму, категорию, дату и описание транзакции.
+     *
+     * @param user Пользователь, которому принадлежит транзакция.
+     */
     public void addTransaction(User user) {
         System.out.println("Введите сумму транзакции:");
         double amount;
@@ -55,6 +78,14 @@ public class TransactionService {
         transactions.add(newTransaction);
         System.out.println("Транзакция добавлена!");
     }
+
+    /**
+     * Обновляет существующую транзакцию в списке транзакций.
+     * Запрашивает у пользователя ID транзакции, а затем новые значения
+     * для суммы, категории, даты и описания.
+     *
+     * @param user Пользователь, которому принадлежит транзакция.
+     */
     public void updateTransaction(User user) {
         System.out.println("Введите id транзакции:");
         int id = Integer.parseInt(sc.nextLine());
@@ -88,20 +119,28 @@ public class TransactionService {
                 System.out.println("Введите новое описание транзакции:");
                 String description = sc.nextLine();
                 Transaction newTransaction = new Transaction(user.getEmail(), amount, description, category, date);
-                transactions.set(id-1, newTransaction);
+                transactions.set(id - 1, newTransaction);
             }
         }
     }
+    /**
+     * Удаляет транзакцию из списка по указанному номеру.
+     */
     public void deleteTransaction() {
         System.out.println("Введите номер транзакции , которую нужно удалить :");
         int id = Integer.parseInt(sc.nextLine());
         for (Transaction transaction : transactions) {
             if (transaction.getId() == id) {
                 transactions.remove(transaction);
+                return;
             }
         }
     }
-
+    /**
+     * Выводит список транзакций для указанного пользователя.
+     *
+     * @param currentUser Пользователь, транзакции которого нужно отобразить.
+     */
     public void viewTransactions(User currentUser) {
 
         if (transactions.isEmpty()) {
@@ -121,6 +160,12 @@ public class TransactionService {
                         transaction.getDescription());
         }
     }
+    /**
+     * Выводит статистику по транзакциям для указанного пользователя.
+     * Включает текущий баланс и анализ расходов по категориям.
+     *
+     * @param currentUser Пользователь, для которого нужно показать статистику.
+     */
     public void showStatistics(User currentUser) {
         if (currentUser == null) {
             System.out.println("Пожалуйста, войдите в систему, чтобы просмотреть статистику.");

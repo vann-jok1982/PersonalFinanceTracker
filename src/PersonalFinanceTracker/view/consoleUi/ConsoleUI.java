@@ -1,31 +1,68 @@
 package PersonalFinanceTracker.view.consoleUi;
 
-import PersonalFinanceTracker.data.service.TransactionService;
-import PersonalFinanceTracker.enamCategory.Category;
-import PersonalFinanceTracker.model.User;
 import PersonalFinanceTracker.data.model.Transaction;
+import PersonalFinanceTracker.data.service.TransactionService;
+import PersonalFinanceTracker.model.User;
 import PersonalFinanceTracker.view.View;
 import PersonalFinanceTracker.view.commands.MainMenu;
 
 import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
+/**
+ * Класс `ConsoleUI` реализует интерфейс `View` и представляет собой консольный интерфейс пользователя.
+ * Он отвечает за взаимодействие с пользователем через консоль, обработку ввода и вызов соответствующих
+ * методов для выполнения операций.
+ */
 public class ConsoleUI implements View {
+
+    /**
+     * Флаг, определяющий, должно ли приложение продолжать работу.
+     */
     private boolean flag;
+
+    /**
+     * Объект `Scanner` для чтения ввода пользователя из консоли.
+     */
     private Scanner sc;
+
+    /**
+     * Объект `MainMenu`, представляющий главное меню приложения.
+     */
     private MainMenu mainMenu;
-    private User currentUser = null;  // Текущий залогиненный пользователь
-    private final Map<String, User> users = new HashMap<>(); // Хранение пользователей (email -> User)
-//    private final List<Transaction> transactions = new ArrayList<>();
+
+    /**
+     * Текущий залогиненный пользователь.
+     */
+    private User currentUser = null;
+
+    /**
+     * Хранилище пользователей, где ключ - email, а значение - объект `User`.
+     */
+    private final Map<String, User> users = new HashMap<>();
+
+    /**
+     * Объект `TransactionService` для управления транзакциями.
+     */
     TransactionService transactionService = new TransactionService();
 
+    /**
+     * Конструктор класса `ConsoleUI`.
+     * Инициализирует флаг работы, сканер для ввода, и создает главное меню.
+     */
     public ConsoleUI() {
         flag = true;
         sc = new Scanner(System.in);
         mainMenu = new MainMenu(this, isLoggedIn());
     }
 
+    /**
+     * Запускает основной цикл работы приложения.
+     * Выводит приветствие, отображает меню и обрабатывает выбор пользователя до тех пор,
+     * пока флаг `flag` не будет установлен в `false`.
+     */
     @Override
     public void start() {
         System.out.println("Приветствую тебя пользователь!");
@@ -42,6 +79,12 @@ public class ConsoleUI implements View {
         }
     }
 
+    /**
+     * Проверяет, является ли введенный пользователем выбор допустимым.
+     *
+     * @param choiceStr Строка, представляющая выбор пользователя.
+     * @return `true`, если выбор допустим (является числом в пределах диапазона меню), `false` в противном случае.
+     */
     public boolean checkChoice(String choiceStr) {
         if (choiceStr.matches("[0-9]+")) { // Проверить, что это число
             int choice = Integer.parseInt(choiceStr);
@@ -51,17 +94,29 @@ public class ConsoleUI implements View {
         }
     }
 
+    /**
+     * Завершает работу приложения, устанавливая флаг `flag` в `false`.
+     */
     public void end() {
         flag = false;
     }
 
+    /**
+     * Метод для вывода ответа (в данном приложении пока не используется).
+     *
+     * @param answer Ответ, который нужно вывести.
+     */
     @Override
     public void printAnswer(int answer) {
         // В данном приложении этот метод пока не используется
     }
 
     // --- Методы для команд ---
-
+    /**
+     * Регистрирует нового пользователя.
+     * Запрашивает у пользователя email, пароль и имя, проверяет, не занят ли email,
+     * и создает нового пользователя, добавляя его в хранилище `users`.
+     */
     public void registerUser() {
         System.out.println("Введите email:");
         String email = sc.nextLine();
@@ -80,6 +135,12 @@ public class ConsoleUI implements View {
         System.out.println("Регистрация успешна!");
     }
 
+    /**
+     * Аутентифицирует пользователя.
+     * Запрашивает у пользователя email и пароль, проверяет, существует ли пользователь с таким email
+     * и соответствует ли введенный пароль сохраненному паролю пользователя.
+     * В случае успеха устанавливает текущего пользователя (`currentUser`).
+     */
     public void loginUser() {
         System.out.println("Введите email:");
         String email = sc.nextLine();
@@ -94,6 +155,12 @@ public class ConsoleUI implements View {
             System.out.println("Неверный email или пароль.");
         }
     }
+
+    /**
+     * Отображает главное меню.
+     * Выводит приветствие для залогиненного пользователя или предлагает войти/зарегистрироваться,
+     * если пользователь не залогинен.
+     */
     public void showMainMenu() {
         if (currentUser != null) {
             System.out.println("Добро пожаловать, " + currentUser.getName() + "!");
@@ -103,19 +170,71 @@ public class ConsoleUI implements View {
         }
     }
 
+    /**
+     * Добавляет новую транзакцию.
+     * Вызывает метод `addTransaction` из `transactionService` для добавления транзакции
+     * и затем вызывает метод `checkBudget` для проверки бюджета.  Требует, чтобы был залогинен текущий пользователь.
+     */
     public void addTransaction() {
-       transactionService.addTransaction(currentUser);
-       checkBudget();
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы добавить транзакцию.");
+            return;
+        }
+        transactionService.addTransaction(currentUser);
+        checkBudget();
     }
-    public void updateTransaction(){
+
+    /**
+     * Обновляет существующую транзакцию.
+     * Вызывает метод `updateTransaction` из `transactionService` для обновления транзакции
+     * и затем вызывает метод `checkBudget` для проверки бюджета. Требует, чтобы был залогинен текущий пользователь.
+     */
+    public void updateTransaction() {
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы обновить транзакцию.");
+            return;
+        }
         transactionService.updateTransaction(currentUser);
         checkBudget();
     }
+    /**
+     * Удаляет транзакцию для текущего пользователя.
+     * Вызывает метод `deleteTransaction` из `TransactionService` для удаления транзакции.
+     * Для выполнения этой операции пользователь должен быть залогинен.
+     */
+    public void deleteTransaction() {
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы обновить транзакцию.");
+            return;
+        }
+        transactionService.deleteTransaction();
+    }
+
+    /**
+     * Просматривает список транзакций.
+     * Вызывает метод `viewTransactions` из `transactionService` для отображения транзакций
+     * текущего пользователя. Требует, чтобы был залогинен текущий пользователь.
+     */
     public void viewTransactions() {
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы просмотреть транзакции.");
+            return;
+        }
         transactionService.viewTransactions(currentUser);
     }
 
+    /**
+     * Позволяет пользователю редактировать свой профиль.
+     * Запрашивает у пользователя новое имя, email и пароль. Если пользователь вводит значение,
+     * то соответствующее поле профиля обновляется. Перед обновлением email проверяется,
+     * не занят ли он другим пользователем.
+     */
     public void editProfile() {
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы редактировать профиль.");
+            return;
+        }
+
         System.out.println("Введите новое имя (или оставьте пустым, чтобы не менять):");
         String newName = sc.nextLine();
         if (!newName.isEmpty()) {
@@ -143,7 +262,17 @@ public class ConsoleUI implements View {
         System.out.println("Профиль обновлен!");
     }
 
+    /**
+     * Позволяет пользователю удалить свой аккаунт.
+     * Запрашивает подтверждение удаления аккаунта. Если пользователь подтверждает удаление,
+     * то аккаунт удаляется из хранилища `users`, а текущий пользователь (`currentUser`) становится `null`.
+     */
     public void deleteAccount() {
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы удалить аккаунт.");
+            return;
+        }
+
         System.out.println("Вы уверены, что хотите удалить аккаунт? (да/нет)");
         String confirmation = sc.nextLine();
         if (confirmation.equalsIgnoreCase("да")) {
@@ -155,14 +284,32 @@ public class ConsoleUI implements View {
         }
     }
 
+    /**
+     * Отображает статистику и аналитику текущего пользователя.
+     * Вызывает метод `showStatistics` из `transactionService` для отображения статистики.
+     */
     public void showStatistics() {
-       transactionService.showStatistics(currentUser);
-
+        if (currentUser == null) {
+            System.out.println("Пожалуйста, войдите в систему, чтобы просмотреть статистику.");
+            return;
+        }
+        transactionService.showStatistics(currentUser);
     }
 
+    /**
+     * Проверяет, залогинен ли пользователь.
+     *
+     * @return `true`, если пользователь залогинен (`currentUser` не равен `null`), `false` в противном случае.
+     */
     public boolean isLoggedIn() {
         return currentUser != null;
     }
+
+    /**
+     * Устанавливает месячный бюджет для текущего пользователя.
+     * Запрашивает у пользователя сумму месячного бюджета, проверяет корректность ввода (должно быть положительное число),
+     * и устанавливает бюджет для текущего пользователя.
+     */
     public void setBudget() {
         if (currentUser == null) {
             System.out.println("Пожалуйста, войдите в систему.");
@@ -183,6 +330,11 @@ public class ConsoleUI implements View {
             System.out.println("Некорректный формат бюджета.");
         }
     }
+
+    /**
+     * Проверяет, не превышены ли расходы текущего пользователя в текущем месяце установленный бюджет.
+     * Если бюджет превышен, выводит сообщение с информацией о бюджете и расходах.
+     */
     private void checkBudget() {
         if (currentUser == null) {
             return; // Ничего не делаем, если пользователь не вошел в систему
@@ -209,5 +361,5 @@ public class ConsoleUI implements View {
             System.out.println("Расходы в этом месяце: " + Math.abs(expensesThisMonth));
         }
     }
-    }
+}
 
