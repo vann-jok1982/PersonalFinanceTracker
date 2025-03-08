@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="52524cc3-831b-45f6-87db-2caaaf6ed783" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/DeleteTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/data/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/data/model/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/data/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/data/service/TransactionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/View.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/View.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/AddTransactionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/AddTransactionCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/Commands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/DeleteAccountCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/DeleteAccountCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/EditProfileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/EditProfileCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/End.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/End.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/LoginUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/LoginUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/RegisterUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/RegisterUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/SetBudgetCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/SetBudgetCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/ShowMainMenuCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/ShowMainMenuCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/ShowStatisticsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/ShowStatisticsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/UpdateTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/UpdateTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/ViewTransactionsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/commands/ViewTransactionsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/consoleUi/ConsoleUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PersonalFinanceTracker/view/consoleUi/ConsoleUI.java" afterDir="false" />
-    </list>
+    <list default="true" id="52524cc3-831b-45f6-87db-2caaaf6ed783" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +36,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "hotfix",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -106,7 +86,7 @@
       <workItem from="1741288410122" duration="7224000" />
       <workItem from="1741357264916" duration="22780000" />
       <workItem from="1741415448019" duration="9519000" />
-      <workItem from="1741464816450" duration="6756000" />
+      <workItem from="1741464816450" duration="7619000" />
     </task>
     <servers />
   </component>
